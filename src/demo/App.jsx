@@ -15,7 +15,12 @@ const DEFAULT_FORMATS = {
             '  one {снял # фотографию}',
             '  few {снял # фотографии}',
             '  other {снял # фотографий}',
-            '} {takenDate, date, long}'].join('\n')
+            '} {takenDate, date, long}'].join('\n'),
+  'fi-FI': ['{name|bold} {numPhotos, plural,',
+            '  =0 {ei ottanut kuvia}',
+            '  =1 {otti yhden kuvan}',
+            '  other {otti # kuvaa}',
+            '} {takenDate, date, long}.'].join('\n')
 }
 
 export default class App extends Component {
@@ -49,6 +54,7 @@ export default class App extends Component {
             <select onChange={this.handleLocaleChange} className='form-control'>
               <option value='en-US'>en-US</option>
               <option value='ru-RU'>ru-RU</option>
+              <option value='fi-FI'>fi-FI</option>
             </select>
           </div>
           <h1>React-Pagan</h1>
