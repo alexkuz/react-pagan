@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import FormattedText from 'react-hot!babel!./FormattedText';
+import FormattedText from './FormattedText';
 import Highlight from 'react-highlight';
 
-import componentSource from 'raw!./FormattedText';
+import componentSource from '!!raw!./FormattedText';
 
 const DEFAULT_FORMATS = {
   'en-US': ['{name|bold} took {numPhotos, plural,',

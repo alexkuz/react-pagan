@@ -2,6 +2,11 @@ var path = require('path');
 var webpack = require('webpack');
 
 var isProduction = process.env.NODE_ENV === 'production';
+var definePlugin = new webpack.DefinePlugin({
+  'process.env': {
+    NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+  },
+});
 
 module.exports = {
   devtool: 'eval',
@@ -18,10 +23,11 @@ module.exports = {
     publicPath: isProduction ? 'static/' : '/static/'
   },
   plugins:  isProduction ?
-    [new webpack.NoErrorsPlugin()] :
+    [new webpack.NoErrorsPlugin(), definePlugin] :
     [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.NoErrorsPlugin()
+      new webpack.NoErrorsPlugin(),
+      definePlugin
     ],
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -30,8 +36,7 @@ module.exports = {
     loaders: [{
       test: /\.jsx?$/,
       loaders: isProduction ? ['babel'] : ['react-hot', 'babel'],
-      include: path.join(__dirname, 'src'),
-      exclude: path.join(__dirname, 'src', 'demo', 'FormattedText.jsx')
+      include: path.join(__dirname, 'src')
     }, {
       test: /intl-messageformat\/dist\/locale-data\/.*/,
       loaders: ['imports?IntlMessageFormat=intl-messageformat']
