@@ -12,15 +12,15 @@ const I18N_TYPE = PropTypes.shape({
   formats: PropTypes.object
 });
 
-export default class Format extends Component {
+export default class FormattedMessage extends Component {
   constructor(props) {
     super(props);
-    this.rootChildren = props.text;
-    this.state = { messageFormat: null };
+    this.rootChildren = props.message;
+    this.state = { messageFormat: null, renderError: null };
   }
 
   static propTypes = {
-    text: PropTypes.string,
+    message: PropTypes.string,
     i18n: I18N_TYPE
   }
 
@@ -41,8 +41,8 @@ export default class Format extends Component {
       return <span>{children}</span>;
     },
 
-    onRenderError(e, text) {
-      return <span>{text}</span>;
+    onRenderError(e, message) {
+      return <span>{message}</span>;
     },
 
     i18n: {
@@ -71,7 +71,7 @@ export default class Format extends Component {
 
     if (nextI18n.locales !== i18n.locales ||
         nextI18n.formats !== i18n.formats ||
-        nextProps.text !== this.props.text) {
+        nextProps.message !== this.props.message) {
       this.createMessageFormat(this.getI18n(nextProps), nextProps);
     }
   }
@@ -82,9 +82,12 @@ export default class Format extends Component {
   }
 
   createMessageFormat(i18n, props) {
-    const messageFormat = getMessageFormat(props.text, i18n.locales, i18n.formats);
-
-    this.setState({ messageFormat });
+    try {
+      const messageFormat = getMessageFormat(props.message, i18n.locales, i18n.formats);
+      this.setState({ messageFormat, renderError: null });
+    } catch (e) {
+      this.setState({ renderError: e });
+    }
   }
 
   renderComponent = (id, children) => {
@@ -94,8 +97,12 @@ export default class Format extends Component {
 
   render() {
     const { getValue, getComponent, getRootComponent,
-            children, text, onRenderError, ...props } = this.props;
+            children, message, onRenderError, ...props } = this.props;
     let rootChildren;
+
+    if (this.state.renderError) {
+      return onRenderError(this.state.renderError, message);
+    }
 
     try {
       rootChildren = this.state.messageFormat.format({
@@ -104,7 +111,7 @@ export default class Format extends Component {
         renderComponent: this.renderComponent
       });
     } catch (e) {
-      return onRenderError(e, text);
+      return onRenderError(e, message);
     }
 
     return getRootComponent(rootChildren);

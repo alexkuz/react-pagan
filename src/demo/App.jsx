@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import FormattedText from './FormattedText';
+import MessageExample from './MessageExample';
 import Highlight from 'react-highlight';
 
-import componentSource from '!!raw!./FormattedText';
+import componentSource from '!!raw!./MessageExample';
 
 const DEFAULT_FORMATS = {
-  'en-US': ['{name|bold} took {numPhotos, plural,',
+  'en-US': ['{nameLink|bold, select, other {Mr {name}}} took {numPhotos, plural,',
             '  =0 {no photos}',
             '  =1 {one photo}',
             '  other {# photos}',
             '} on {takenDate, date, long}.'].join('\n'),
-  'ru-RU': ['{name|bold} {numPhotos, plural,' +
+  'ru-RU': ['{nameLink|bold, select, other {Г-н {name}}} {numPhotos, plural,' +
             '  =0 {не снял ни одной фотографии}',
             '  one {снял # фотографию}',
             '  few {снял # фотографии}',
@@ -74,9 +74,9 @@ export default class App extends Component {
             {error}
           </div>
         }
-        <FormattedText text={this.state.format}
-                       values={values}
-                       i18n={this.state.i18n} />
+        <MessageExample message={this.state.format}
+                        values={values}
+                        i18n={this.state.i18n} />
         <h4>Source</h4>
         <Highlight className='javascript' style={{ margin: 0 }}>
           {componentSource}
