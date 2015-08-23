@@ -1,7 +1,7 @@
 {
   "name": "react-pagan",
   "version": "0.0.3",
-  "description": "",
+  "description": "Component for internationalization (enhanced version of React-Intl)",
   "scripts": {
     "build-lib": "./node_modules/.bin/babel src --out-dir lib",
     "build-demo": "NODE_ENV=production webpack -p",
@@ -15,25 +15,20 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gaearon/react-hot-boilerplate.git"
+    "url": "https://github.com/alexkuz/react-pagan.git"
   },
   "keywords": [
     "react",
     "reactjs",
-    "boilerplate",
-    "hot",
-    "reload",
-    "hmr",
-    "live",
-    "edit",
-    "webpack"
+    "intl",
+    "i18n"
   ],
-  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "author": "Alexander <alexkuz@gmail.com> (http://kuzya.org/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
+    "url": "https://github.com/alexkuz/react-pagan/issues"
   },
-  "homepage": "https://github.com/gaearon/react-hot-boilerplate",
+  "homepage": "https://github.com/alexkuz/react-pagan",
   "devDependencies": {
     "babel": "^5.8.21",
     "babel-core": "^5.4.7",
