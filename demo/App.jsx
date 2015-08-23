@@ -16,12 +16,20 @@ const DEFAULT_FORMATS = {
             '  few {снял # фотографии}',
             '  other {снял # фотографий}',
             '} {takenDate, date, long}'].join('\n'),
-  'fi-FI': ['{name|bold} {numPhotos, plural,',
+  'fi-FI': ['{nameLink|bold, select, other {{name}}} {numPhotos, plural,',
             '  =0 {ei ottanut kuvia}',
             '  =1 {otti yhden kuvan}',
             '  other {otti # kuvaa}',
             '} {takenDate, date, long}.'].join('\n')
 }
+
+const DEFAULT_VALUES = [
+  '{',
+  `  "takenDate": ${new Date().getTime()},`,
+  '  "numPhotos": 123,',
+  '  "name": "John Smith"',
+  '}'
+].join('\n');
 
 export default class App extends Component {
   constructor(props) {
@@ -29,12 +37,7 @@ export default class App extends Component {
     this.state = {
       i18n: { locales: 'en-US' },
       format: DEFAULT_FORMATS['en-US'],
-      values:
-`{
-  "takenDate": ${new Date().getTime()},
-  "numPhotos": 123,
-  "name": "John Smith"
-}`
+      values: DEFAULT_VALUES
     };
   }
 

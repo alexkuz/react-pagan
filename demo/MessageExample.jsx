@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import FormattedMessage from '../FormattedMessage';
-import getVariableModifiers from '../getVariableModifiers';
+import FormattedMessage from '../src/FormattedMessage';
+import getVariableModifiers from '../src/getVariableModifiers';
 
 export default class MessageExample extends Component {
   static propTypes = {
@@ -18,8 +18,8 @@ export default class MessageExample extends Component {
   render() {
     const { message, i18n, values } = this.props;
 
-    const getBoldStyle = varArgs => ({
-      fontWeight: varArgs.indexOf('bold') !== -1 ? 'bold' : undefined
+    const getBoldStyle = modifiers => ({
+      fontWeight: modifiers.indexOf('bold') !== -1 ? 'bold' : undefined
     });
 
     return (
@@ -36,11 +36,11 @@ export default class MessageExample extends Component {
                             <div className='alert alert-warning'>{e.message}<br/>{msg}</div>
                           }>
           {getVariableModifiers(
-            (id, varArgs, children) => {
+            (id, modifiers, children) => {
               switch (id) {
               case 'nameLink':
                 return (
-                  <a href='#' style={getBoldStyle(varArgs)}>{children}</a>
+                  <a href='#' style={getBoldStyle(modifiers)}>{children}</a>
                 );
               case 'name':
                 return (
@@ -48,7 +48,7 @@ export default class MessageExample extends Component {
                 );
               default:
                 return (
-                  <span className='text-success' style={getBoldStyle(varArgs)}>{children}</span>
+                  <span className='text-success' style={getBoldStyle(modifiers)}>{children}</span>
                 );
               }
             }
