@@ -1,0 +1,55 @@
+{
+  "name": "react-pagan",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "start": "node server.js",
+    "lint": "eslint src"
+  },
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gaearon/react-hot-boilerplate.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "boilerplate",
+    "hot",
+    "reload",
+    "hmr",
+    "live",
+    "edit",
+    "webpack"
+  ],
+  "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
+  },
+  "homepage": "https://github.com/gaearon/react-hot-boilerplate",
+  "devDependencies": {
+    "babel": "^5.8.21",
+    "babel-core": "^5.4.7",
+    "babel-eslint": "^4.0.10",
+    "babel-loader": "^5.1.2",
+    "babel-runtime": "^5.8.20",
+    "eslint": "^1.2.1",
+    "eslint-loader": "^1.0.0",
+    "eslint-plugin-babel": "^2.1.1",
+    "eslint-plugin-react": "^3.2.3",
+    "highlight.js": "^8.7.0",
+    "imports-loader": "^0.6.4",
+    "raw-loader": "^0.5.1",
+    "react-highlight": "^0.5.0",
+    "react-hot-loader": "^1.2.8",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1"
+  },
+  "dependencies": {
+    "intl-format-cache": "^2.0.4",
+    "intl-messageformat": "^1.1.0",
+    "react": "^0.13.0",
+    "react-bootstrap": "^0.24.2"
+  }
+}
