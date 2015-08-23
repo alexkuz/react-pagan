@@ -3,8 +3,12 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
+    "build": "NODE_ENV=production webpack -p",
+    "stats": "webpack --profile --json > stats.json",
     "start": "node server.js",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "version": "npm run build && git add -A .",
+    "postversion": "git push"
   },
   "main": "lib/index.js",
   "repository": {
