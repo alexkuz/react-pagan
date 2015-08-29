@@ -1,6 +1,6 @@
 {
   "name": "react-pagan",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Component for internationalization (enhanced version of React-Intl)",
   "scripts": {
     "build-lib": "./node_modules/.bin/babel src --out-dir lib",
