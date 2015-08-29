@@ -20,7 +20,7 @@ export default class FormattedMessage extends Component {
   }
 
   static propTypes = {
-    message: PropTypes.string,
+    message: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     i18n: I18N_TYPE
   }
 
@@ -77,13 +77,18 @@ export default class FormattedMessage extends Component {
   }
 
   requireLocales(locales) {
+    if (!Array.isArray(locales)) {
+      locales = [locales];
+    }
     // TODO: support second-level locales
-    require('intl-messageformat/dist/locale-data/' + locales.split('-')[0]);
+    locales.forEach(locale =>
+      locale && require('intl-messageformat/dist/locale-data/' + locale.split('-')[0])
+    );
   }
 
   createMessageFormat(i18n, props) {
     try {
-      const messageFormat = getMessageFormat(props.message, i18n.locales, i18n.formats);
+      const messageFormat = getMessageFormat(props.message.toString(), i18n.locales, i18n.formats);
       this.setState({ messageFormat, renderError: null });
     } catch (e) {
       this.setState({ renderError: e });

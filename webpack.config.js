@@ -49,6 +49,9 @@ module.exports = {
     }, {
       test: /intl-messageformat\/dist\/locale-data\/.*/,
       loaders: ['imports?IntlMessageFormat=intl-messageformat']
+    }, {
+      test: /\.i18n\.json$/,
+      loaders: ['promise?global,[name].i18n', 'json']
     }]
   }
 };

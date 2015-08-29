@@ -1,0 +1,5 @@
+{
+  "app": {
+    "text": "{nameLink|bold, select, other {{name}}} {numPhotos, plural,\n  =0 {ei ottanut kuvia}\n  =1 {otti yhden kuvan}\n  other {otti # kuvaa}\n} {takenDate, date, long}."
+  }
+}

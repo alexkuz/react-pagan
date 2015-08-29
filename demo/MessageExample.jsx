@@ -4,19 +4,17 @@ import getVariableModifiers from '../src/getVariableModifiers';
 
 export default class MessageExample extends Component {
   static propTypes = {
-    message: PropTypes.string,
-    i18n: PropTypes.shape({
-      locales: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string)
-      ]),
-      formats: PropTypes.object
-    }),
+    locale: PropTypes.string,
+    lang: PropTypes.func,
     values: PropTypes.object
   }
 
+  static defaultProps = {
+    locale: 'en-US'
+  }
+
   render() {
-    const { message, i18n, values } = this.props;
+    const { locale, lang, values } = this.props;
 
     const getBoldStyle = modifiers => ({
       fontWeight: modifiers.indexOf('bold') !== -1 ? 'bold' : undefined
@@ -24,8 +22,8 @@ export default class MessageExample extends Component {
 
     return (
       <div className='panel panel-default'>
-        <FormattedMessage message={message}
-                          i18n={i18n}
+        <FormattedMessage message={lang('text')}
+                          i18n={{ locales: [locale] }}
                           getValue={getVariableModifiers(id =>
                             values[id] !== undefined ? values[id] : id)
                           }

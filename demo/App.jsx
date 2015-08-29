@@ -1,26 +1,13 @@
 import React, { Component } from 'react';
 import MessageExample from './MessageExample';
 import Highlight from 'react-highlight';
-
+import { connect } from 'react-redux';
 import componentSource from '!!raw!./MessageExample';
+import { loadLang } from 'redux-pagan';
+import cookie from 'cookie.js';
 
-const DEFAULT_FORMATS = {
-  'en-US': ['{nameLink|bold, select, other {Mr {name}}} took {numPhotos, plural,',
-            '  =0 {no photos}',
-            '  =1 {one photo}',
-            '  other {# photos}',
-            '} on {takenDate, date, long}.'].join('\n'),
-  'ru-RU': ['{nameLink|bold, select, other {Г-н {name}}} {numPhotos, plural,' +
-            '  =0 {не снял ни одной фотографии}',
-            '  one {снял # фотографию}',
-            '  few {снял # фотографии}',
-            '  other {снял # фотографий}',
-            '} {takenDate, date, long}'].join('\n'),
-  'fi-FI': ['{nameLink|bold, select, other {{name}}} {numPhotos, plural,',
-            '  =0 {ei ottanut kuvia}',
-            '  =1 {otti yhden kuvan}',
-            '  other {otti # kuvaa}',
-            '} {takenDate, date, long}.'].join('\n')
+function getLangData(locale) {
+  return require('./i18n/' + locale + '.i18n.json');
 }
 
 const DEFAULT_VALUES = [
@@ -31,14 +18,28 @@ const DEFAULT_VALUES = [
   '}'
 ].join('\n');
 
+@connect(state => ({
+  lang: state.i18n.get('app'),
+  locale: state.i18n.locale
+}))
 export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      i18n: { locales: 'en-US' },
-      format: DEFAULT_FORMATS['en-US'],
+      format: props.lang('text').s,
       values: DEFAULT_VALUES
     };
+  }
+
+  componentDidMount() {
+    this.props.dispatch(loadLang(cookie.get('lang') || 'en-US', getLangData));
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.locale !== this.props.locale) {
+      cookie.set('lang', this.props.locale);
+      this.setState({ format: this.props.lang('text') });
+    }
   }
 
   render() {
@@ -54,7 +55,9 @@ export default class App extends Component {
       <div className='container'>
         <div className='page-header'>
           <div className='pull-right'>
-            <select onChange={this.handleLocaleChange} className='form-control'>
+            <select onChange={this.handleLocaleChange}
+                    className='form-control'
+                    value={this.props.locale}>
               <option value='en-US'>en-US</option>
               <option value='ru-RU'>ru-RU</option>
               <option value='fi-FI'>fi-FI</option>
@@ -85,7 +88,8 @@ export default class App extends Component {
         }
         <MessageExample message={this.state.format}
                         values={values}
-                        i18n={this.state.i18n} />
+                        locale={this.props.locale}
+                        lang={this.props.lang} />
         <h4>Source</h4>
         <Highlight className='javascript' style={{ margin: 0 }}>
           {componentSource}
@@ -103,12 +107,6 @@ export default class App extends Component {
   }
 
   handleLocaleChange = e => {
-    this.setState({
-      i18n: {
-        ...this.state.i18n,
-        locales: e.target.value
-      },
-      format: DEFAULT_FORMATS[e.target.value]
-    });
+    this.props.dispatch(loadLang(e.target.value, getLangData));
   }
 }

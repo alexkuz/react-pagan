@@ -1,0 +1,5 @@
+{
+  "app": {
+    "text": "{nameLink|bold, select, other {Г-н {name}}} {numPhotos, plural,\n  =0 {не снял ни одной фотографии}\n  one {снял # фотографию}\n  few {снял # фотографии}\n  other {снял # фотографий}\n} {takenDate, date, long}"
+  }
+}
