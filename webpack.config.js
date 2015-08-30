@@ -52,6 +52,8 @@ module.exports = {
     }, {
       test: /\.i18n\.json$/,
       loaders: ['promise?global,[name].i18n', 'json']
+    }, {
+      test: require.resolve('react/lib/ReactDefaultPerf'), loader: 'expose?Perf'
     }]
   }
 };

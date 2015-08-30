@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import FormattedMessage from '../src/FormattedMessage';
 import getVariableModifiers from '../src/getVariableModifiers';
+import shouldPureComponentUpdate from 'react-pure-render/function';
 
 export default class MessageExample extends Component {
   static propTypes = {
@@ -12,6 +13,8 @@ export default class MessageExample extends Component {
   static defaultProps = {
     locale: 'en-US'
   }
+
+  shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
     const { locale, lang, values } = this.props;

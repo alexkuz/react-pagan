@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import MessageExample from './MessageExample';
-import Highlight from 'react-highlight';
 import { connect } from 'react-redux';
 import componentSource from '!!raw!./MessageExample';
 import { loadLang } from 'redux-pagan';
 import cookie from 'cookie.js';
+import Source from './Source';
+import 'react/lib/ReactDefaultPerf';
 
 function getLangData(locale) {
   return require('./i18n/' + locale + '.i18n.json');
@@ -91,9 +92,7 @@ export default class App extends Component {
                         locale={this.props.locale}
                         lang={this.props.lang} />
         <h4>Source</h4>
-        <Highlight className='javascript' style={{ margin: 0 }}>
-          {componentSource}
-        </Highlight>
+        <Source text={componentSource} />
       </div>
     );
   }
