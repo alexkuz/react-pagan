@@ -1,3 +1,3 @@
-export { Format as default } from './Format';
+export FormattedMessage from './FormattedMessage';
 
 export getVariableModifiers from './getVariableModifiers';

@@ -1,3 +1,4 @@
+import React from 'react';
 import IntlMessageFormat from 'intl-messageformat';
 
 export default class ReactMessageFormat extends IntlMessageFormat {
@@ -17,7 +18,9 @@ export default class ReactMessageFormat extends IntlMessageFormat {
 
       value = getValue(id, props);
 
-      if (part.options) {
+      if (React.isValidElement(value)) {
+        result.push(value);
+      } else if (part.options) {
         result.push(renderComponent(id, this._format(part.getOption(value), values)));
       } else {
         result.push(renderComponent(id, part.format(value)));
