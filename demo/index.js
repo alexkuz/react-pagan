@@ -5,6 +5,14 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { i18n } from 'redux-pagan';
 
+console.log(global.Intl);
+if (!global.Intl) {
+  require('intl');
+  require('intl/locale-data/jsonp/en.js');
+  require('intl/locale-data/jsonp/ru.js');
+  require('intl/locale-data/jsonp/fi.js');
+}
+
 const createStoreWithMiddleware = applyMiddleware(
   thunk
 )(createStore);
