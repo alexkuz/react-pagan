@@ -45,6 +45,10 @@ export default class FormattedMessage extends Component {
       return <span>{message}</span>;
     },
 
+    renderString(str) {
+      return str;
+    },
+
     i18n: {
       locales: 'en-US'
     }
@@ -101,7 +105,7 @@ export default class FormattedMessage extends Component {
   }
 
   render() {
-    const { getValue, getComponent, getRootComponent,
+    const { getValue, getComponent, getRootComponent, renderString,
             children, message, onRenderError, ...props } = this.props;
     let rootChildren;
 
@@ -113,7 +117,8 @@ export default class FormattedMessage extends Component {
       rootChildren = this.state.messageFormat.format({
         getValue,
         props,
-        renderComponent: this.renderComponent
+        renderComponent: this.renderComponent,
+        renderString
       });
     } catch (e) {
       return onRenderError(e, message);
