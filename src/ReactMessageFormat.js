@@ -21,9 +21,9 @@ export default class ReactMessageFormat extends IntlMessageFormat {
       if (React.isValidElement(value)) {
         result.push(value);
       } else if (part.options) {
-        result.push(renderComponent(id, this._format(part.getOption(value), values)));
+        result.push(renderComponent(id, this._format(part.getOption(value), values)), i);
       } else {
-        result.push(renderComponent(id, part.format(value)));
+        result.push(renderComponent(id, part.format(value)), i);
       }
     }
 

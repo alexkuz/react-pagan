@@ -99,9 +99,9 @@ export default class FormattedMessage extends Component {
     }
   }
 
-  renderComponent = (id, children) => {
-    const component = (this.props.children || this.props.getComponent)(id, children);
-    return React.cloneElement(component, { key: component.props.key || `pagan-${id}` });
+  renderComponent = (id, children, idx) => {
+    const component = (this.props.children || this.props.getComponent)(id, children, idx);
+    return React.cloneElement(component, { key: component.props.key || `pagan-${id}-${idx}` });
   }
 
   render() {
