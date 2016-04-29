@@ -10,7 +10,7 @@ export default class ReactMessageFormat extends IntlMessageFormat {
       part = pattern[i];
 
       if (typeof part === 'string') {
-        result.push(renderString(part));
+        result.push(renderString(part, i));
         continue;
       }
 
