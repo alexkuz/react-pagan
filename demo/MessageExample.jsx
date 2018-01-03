@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import FormattedMessage from '../src/FormattedMessage';
 import getVariableModifiers from '../src/getVariableModifiers';
 import shouldPureComponentUpdate from 'react-pure-render/function';

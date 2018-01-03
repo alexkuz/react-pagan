@@ -5,7 +5,6 @@ import componentSource from '!!raw!./MessageExample';
 import { loadLang } from 'redux-pagan';
 import cookie from 'cookie.js';
 import Source from './Source';
-import 'react/lib/ReactDefaultPerf';
 
 function getLangData(locale) {
   return require('./i18n/' + locale + '.i18n.json');
@@ -36,10 +35,10 @@ export default class App extends Component {
     this.props.dispatch(loadLang(cookie.get('lang') || 'en-US', getLangData));
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.locale !== this.props.locale) {
-      cookie.set('lang', this.props.locale);
-      this.setState({ format: this.props.lang('text') });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.locale !== this.props.locale) {
+      cookie.set('lang', nextProps.locale);
+      this.setState({ format: nextProps.lang('text') });
     }
   }
 
@@ -70,7 +69,7 @@ export default class App extends Component {
           <div className='form-group col-xs-6'>
             <label>Format</label>
             <textarea onChange={this.handleFormatChange}
-                      value={this.state.format}
+                      value={this.state.format.s}
                       className='form-control'
                       rows={this.state.format.split('\n').length} />
           </div>

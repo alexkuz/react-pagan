@@ -1,11 +1,11 @@
 import React from 'react';
+import { render } from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 import { i18n } from 'redux-pagan';
 
-console.log(global.Intl);
 if (!global.Intl) {
   require('intl');
   require('intl/locale-data/jsonp/en.js');
@@ -23,9 +23,9 @@ const rootReducer = combineReducers({
 
 const store = createStoreWithMiddleware(rootReducer);
 
-React.render(
+render(
   <Provider store={store}>
-    {() => <App />}
+    <App />
   </Provider>,
   document.getElementById('root')
 );

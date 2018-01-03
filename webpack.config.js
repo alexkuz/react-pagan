@@ -41,19 +41,17 @@ module.exports = {
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loaders: isProduction ? ['babel'] : ['react-hot', 'babel'],
+      loaders: ['babel'],
       include: [
         path.join(__dirname, 'src'),
         path.join(__dirname, 'demo')
       ]
     }, {
       test: /intl-messageformat\/dist\/locale-data\/.*/,
-      loaders: ['imports?IntlMessageFormat=intl-messageformat']
+      loaders: ['imports-loader?IntlMessageFormat=intl-messageformat']
     }, {
       test: /\.i18n\.json$/,
-      loaders: ['promise?global,[name].i18n', 'json']
-    }, {
-      test: require.resolve('react/lib/ReactDefaultPerf'), loader: 'expose?Perf'
+      loaders: ['promise-loader?global,[name].i18n', 'json-loader']
     }]
   }
 };
